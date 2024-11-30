@@ -6,7 +6,7 @@
 /*   By: kevisout <kevisout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:00:56 by kevisout          #+#    #+#             */
-/*   Updated: 2024/11/29 19:05:44 by kevisout         ###   ########.fr       */
+/*   Updated: 2024/11/30 11:08:09 by kevisout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,11 @@ int	parse_args(char *args)
 		return (0);
 	count = count_nbrs(args);
 	nbrs = get_nbrs(args, count);
-	if (!check_duplicates(nbrs))
+	if (!nbrs)
 		return (0);
-	if (!check_overflows(nbrs))
-		return (0);
-	return (1);
+	if (!check_duplicates(nbrs, count))
+		return (free(nbrs), 0);
+	if (!check_overflows(nbrs, count))
+		return (free(nbrs), 0);
+	return (free(nbrs), 1);
 }

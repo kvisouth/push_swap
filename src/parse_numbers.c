@@ -6,7 +6,7 @@
 /*   By: kevisout <kevisout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:00:47 by kevisout          #+#    #+#             */
-/*   Updated: 2024/11/29 19:01:41 by kevisout         ###   ########.fr       */
+/*   Updated: 2024/11/30 11:08:36 by kevisout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,16 @@ long	*get_nbrs(char *str, int count)
 }
 
 /* Check si il n'y a pas de doublons dans le tableau */
-int	check_duplicates(long *nbrs)
+int	check_duplicates(long *nbrs, int count)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (nbrs[i])
+	while (i < count)
 	{
 		j = i + 1;
-		while (nbrs[j])
+		while (j < count)
 		{
 			if (nbrs[i] == nbrs[j])
 				return (0);
@@ -82,12 +82,12 @@ int	check_duplicates(long *nbrs)
 }
 
 /* Check si il y a des nombres plus elevees que INTMAX ou inferieur a INTMIN */
-int	check_overflows(long *nbrs)
+int	check_overflows(long *nbrs, int count)
 {
 	int	i;
 
 	i = 0;
-	while (nbrs[i])
+	while (i < count)
 	{
 		if (nbrs[i] > 2147483647 || nbrs[i] < -2147483648)
 			return (0);
