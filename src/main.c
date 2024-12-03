@@ -6,7 +6,7 @@
 /*   By: kevisout <kevisout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:17:42 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/03 15:15:32 by kevisout         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:28:11 by kevisout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int ac, char **av)
 	stack_b = NULL;
 	if (!parsing(ac, av, &parse))
 		return (write(2, "Error\n", 6), 0);
-	if (!init_stack(&parse, &stack_a, 'a') || !init_stack(&parse, &stack_b, 'b'))
+	if (!init_stack(&parse, &stack_a, 97) || !init_stack(&parse, &stack_b, 98))
 		return (write(2, "Error\n", 6), free(parse.nbrs), 0);
 	debug_print_stack(stack_a);
 	return (free_stack(&stack_a), free_stack(&stack_b), 1);
