@@ -6,7 +6,7 @@
 /*   By: kevisout <kevisout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:17:57 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/03 15:07:36 by kevisout         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:50:36 by kevisout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int		parse_args(char *args);
 int		parsing(int ac, char **av, t_parse *parse);
 
 /* Sorting */
+int		sort(t_stack **stack_a, t_stack **stack_b, int size);
 
 /* Init */
 int		init_stack(t_parse *parse, t_stack **stack, char c);
