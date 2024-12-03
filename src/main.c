@@ -6,7 +6,7 @@
 /*   By: kevisout <kevisout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:17:42 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/03 15:02:07 by kevisout         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:15:32 by kevisout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ void	debug_print_stack(t_stack *stack)
 	}
 }
 
+/* Free and delete list */
+void	free_stack(t_stack **stack)
+{
+	t_stack	*tmp;
+
+	while (*stack)
+	{
+		tmp = *stack;
+		*stack = (*stack)->next;
+		free(tmp);
+	}
+}
+
 int	main(int ac, char **av)
 {
 	t_stack	*stack_a;
@@ -37,10 +50,8 @@ int	main(int ac, char **av)
 	stack_b = NULL;
 	if (!parsing(ac, av, &parse))
 		return (write(2, "Error\n", 6), 0);
-	if (!init_stack(parse.nbrs, parse.count, &stack_a, 'a')
-		|| !init_stack(parse.nbrs, parse.count, &stack_b, 'b'))
+	if (!init_stack(&parse, &stack_a, 'a') || !init_stack(&parse, &stack_b, 'b'))
 		return (write(2, "Error\n", 6), free(parse.nbrs), 0);
 	debug_print_stack(stack_a);
-	free(parse.nbrs);
-	return (1);
+	return (free_stack(&stack_a), free_stack(&stack_b), 1);
 }

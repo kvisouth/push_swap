@@ -6,7 +6,7 @@
 /*   By: kevisout <kevisout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/30 11:33:56 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/03 14:57:08 by kevisout         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:14:10 by kevisout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ int	fill_stack(t_stack **stack, long *nbrs, int count)
 }
 
 /* Initialise notre liste chainees d'entiers avec des 0 */
-int	init_stack(long *nbrs, int count, t_stack **stack, char c)
+int	init_stack(t_parse *parse, t_stack **stack, char c)
 {
 	int		i;
 	t_stack	*new;
 
 	i = 0;
-	while (i < count)
+	while (i < parse->count)
 	{
 		new = ft_calloc(1, sizeof(t_stack));
 		if (!new)
@@ -47,6 +47,7 @@ int	init_stack(long *nbrs, int count, t_stack **stack, char c)
 		i++;
 	}
 	if (c == 'a')
-		return (fill_stack(stack, nbrs, count));
+		return (fill_stack(stack, parse->nbrs, parse->count));
+	free(parse->nbrs);
 	return (1);
 }
