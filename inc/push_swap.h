@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kevisout <kevisout@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:17:57 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/03 18:06:19 by kevisout         ###   ########.fr       */
+/*   Updated: 2024/12/13 17:14:50 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,29 @@ int		parse_args(char *args);
 int		parsing(int ac, char **av, t_parse *parse);
 
 /* Sorting */
+int		is_sorted(t_stack *stack);
 int		sort(t_stack **stack_a, t_stack **stack_b, int size);
-void	sa(t_stack **stack_a);
-void	sb(t_stack **stack_b);
-void	ss(t_stack **stack_a, t_stack **stack_b);
 void	pa(t_stack **stack_a, t_stack **stack_b);
 void	pb(t_stack **stack_a, t_stack **stack_b);
-void	ra(t_stack **stack_a);
-void	rb(t_stack **stack_b);
+void	sa(t_stack **stack_a, int print);
+void	sb(t_stack **stack_b, int print);
+void	ss(t_stack **stack_a, t_stack **stack_b);
+void	ra(t_stack **stack_a, int print);
+void	rb(t_stack **stack_b, int print);
 void	rr(t_stack **stack_a, t_stack **stack_b);
-void	rra(t_stack **stack_a);
-void	rrb(t_stack **stack_b);
+void	rra(t_stack **stack_a, int print);
+void	rrb(t_stack **stack_b, int print);
 void	rrr(t_stack **stack_a, t_stack **stack_b);
+
+/* Sort algo */
+void	sort_2(t_stack **stack);
+void	sort_3(t_stack **stack);
+void	sort_4(t_stack **stack_a, t_stack **stack_b);
+void	sort_5(t_stack **stack_a, t_stack **stack_b);
 
 /* Init */
 int		init_stack(t_parse *parse, t_stack **stack, char c);
+int		find_smallest_pos(t_stack *stack);
 int		fill_stack(t_stack **stack, long *nbrs, int count);
 
 #endif

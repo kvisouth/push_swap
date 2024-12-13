@@ -29,6 +29,13 @@ void	pa(t_stack **stack_a, t_stack **stack_b)
 /* Prend le premier élément au sommet de a et le met sur b */
 void	pb(t_stack **stack_a, t_stack **stack_b)
 {
-	(void)stack_a;
-	(void)stack_b;
+	t_stack	*tmp;
+
+	if (!*stack_a)
+		return ;
+	tmp = *stack_a;
+	*stack_a = (*stack_a)->next;
+	tmp->next = *stack_b;
+	*stack_b = tmp;
+	write(1, "pb\n", 3);
 }

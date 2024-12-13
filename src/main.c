@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kevisout <kevisout@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:17:42 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/03 17:50:21 by kevisout         ###   ########.fr       */
+/*   Updated: 2024/12/13 16:40:53 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ int	main(int ac, char **av)
 		return (write(2, "Error\n", 6), 1);
 	if (!init_stack(&parse, &stack_a, 97))
 		return (write(2, "Error\n", 6), free(parse.nbrs), 1);
+	printf("BEFORE:\n");
 	debug_print_stack(stack_a);
-	debug_print_stack(stack_b);
 	if (!sort(&stack_a, &stack_b, parse.count))
 		return (write(2, "Error\n", 6), 1);
+	printf("\nAFTER:\n");
+	debug_print_stack(stack_a);
 	return (free_stack(&stack_a), free_stack(&stack_b), 0);
 }
