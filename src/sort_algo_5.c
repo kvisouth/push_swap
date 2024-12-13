@@ -6,12 +6,13 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:58:44 by kevso             #+#    #+#             */
-/*   Updated: 2024/12/13 17:28:12 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/13 19:07:55 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
+/* Trouve et envoie le plus petit nombre de stack_a */
 void	push_first_smallest_to_b(t_stack **stack_a, t_stack **stack_b)
 {
 	int	pos;
@@ -34,6 +35,7 @@ void	push_first_smallest_to_b(t_stack **stack_a, t_stack **stack_b)
 	pb(stack_a, stack_b);
 }
 
+/* Trouve et envoie le plus petit nombre de stack_a (La deuxieme fois) */
 void	push_second_smallest_to_b(t_stack **stack_a, t_stack **stack_b)
 {
 	int	pos;
@@ -51,6 +53,7 @@ void	push_second_smallest_to_b(t_stack **stack_a, t_stack **stack_b)
 	pb(stack_a, stack_b);
 }
 
+/* Trie un stack de 5 éléments */
 void	sort_5(t_stack **stack_a, t_stack **stack_b)
 {
 	push_first_smallest_to_b(stack_a, stack_b);
