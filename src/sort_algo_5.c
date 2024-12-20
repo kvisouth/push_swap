@@ -6,7 +6,7 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:58:44 by kevso             #+#    #+#             */
-/*   Updated: 2024/12/13 19:07:55 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 16:46:57 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	push_first_smallest_to_b(t_stack **stack_a, t_stack **stack_b)
 void	push_second_smallest_to_b(t_stack **stack_a, t_stack **stack_b)
 {
 	int	pos;
-	
+
 	pos = find_smallest_pos(*stack_a);
 	if (pos == 1)
 		ra(stack_a, 1);
@@ -64,4 +64,3 @@ void	sort_5(t_stack **stack_a, t_stack **stack_b)
 	pa(stack_a, stack_b);
 	pa(stack_a, stack_b);
 }
-

@@ -6,7 +6,7 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:58:52 by kevso             #+#    #+#             */
-/*   Updated: 2024/12/20 13:33:36 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 16:45:23 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	get_stack_size(t_stack *stack)
 }
 
 /* Indexe les éléments de la stack et determine dans quel moitiee ils sont */
-void	get_indexes(t_stack *stack)
+void	get_indexes_and_median(t_stack *stack)
 {
 	t_stack	*tmp;
 	int		i;
@@ -46,8 +46,8 @@ void	get_indexes(t_stack *stack)
 		else
 			tmp->half = 2;
 		tmp = tmp->next;
-		++i;
-	}	
+		i++;
+	}
 }
 
 /* Retourne un ptr sur le plus grand élément (nb) de la stack */
@@ -74,6 +74,7 @@ t_stack	*target_the_biggest(t_stack *stack)
 	return (biggest);
 }
 
+/* Retourne un ptr sur le plus petit élément (nb) de la stack */
 t_stack	*target_the_smallest(t_stack *stack)
 {
 	t_stack	*tmp;
@@ -102,21 +103,17 @@ t_stack	*target_the_smallest(t_stack *stack)
 void	get_cost_in_a(t_stack *a, t_stack *b)
 {
 	t_stack	*tmp_a;
-	int	len_a;
-	int	len_b;
 
 	tmp_a = a;
-	len_a = get_stack_size(a);
-	len_b = get_stack_size(b);
 	while (tmp_a)
 	{
 		tmp_a->cost = tmp_a->index;
 		if (tmp_a->half == 2)
-			tmp_a->cost = len_a - tmp_a->index;
+			tmp_a->cost = get_stack_size(a) - tmp_a->index;
 		if (tmp_a->target->half == 1)
 			tmp_a->cost += tmp_a->target->index;
 		else
-			tmp_a->cost += len_b - tmp_a->target->index;
+			tmp_a->cost += get_stack_size(b) - tmp_a->target->index;
 		tmp_a = tmp_a->next;
 	}
 }
@@ -160,20 +157,20 @@ t_stack	*get_cheapest_node(t_stack *a)
 }
 
 /* Remonte l'element le moins couteux en haut de la stack */
-void	get_to_top(t_stack **stack, t_stack *node_to_put_on_top, char stack_name)
+void	get_to_top(t_stack **stack, t_stack *node_to_move, char stack_name)
 {
-	while(*stack != node_to_put_on_top)
+	while (*stack != node_to_move)
 	{
 		if (stack_name == 'a')
 		{
-			if (node_to_put_on_top->half == 1)
+			if (node_to_move->half == 1)
 				ra(stack, 1);
 			else
-				rra(stack, 1);	
+				rra(stack, 1);
 		}
 		else if (stack_name == 'b')
 		{
-			if (node_to_put_on_top->half == 1)
+			if (node_to_move->half == 1)
 				rb(stack, 1);
 			else
 				rrb(stack, 1);
@@ -181,22 +178,25 @@ void	get_to_top(t_stack **stack, t_stack *node_to_put_on_top, char stack_name)
 	}
 }
 
+/* rra ou ra jusqu'a que a et b soient dans la meme moitie (Haute)*/
 void	rotate_both(t_stack **a, t_stack **b, t_stack *cheapest)
 {
 	while (*b != cheapest->target && *a != cheapest)
 		rr(a, b);
-	get_indexes(*a);
-	get_indexes(*b);
+	get_indexes_and_median(*a);
+	get_indexes_and_median(*b);
 }
 
+/* Performe un rrr si a et b sont dans la meme moitie (Basse)*/
 void	reverse_rotate_both(t_stack **a, t_stack **b, t_stack *cheapest)
 {
 	while (*b != cheapest->target && *a != cheapest)
 		rrr(a, b);
-	get_indexes(*a);
-	get_indexes(*b);
+	get_indexes_and_median(*a);
+	get_indexes_and_median(*b);
 }
 
+/* Met les elements les moins couteux en haut de a et/ou b */
 void	get_elems_to_top(t_stack **a, t_stack **b)
 {
 	t_stack	*cheapest;
@@ -237,7 +237,7 @@ void	get_targets_in_b(t_stack *a, t_stack *b)
 		else
 			tmp_a->target = target_node;
 		tmp_a = tmp_a->next;
-	}	
+	}
 }
 
 /* Pareil que get_targets_in_b mais dans l'autre sens */
@@ -270,11 +270,12 @@ void	get_targets_in_a(t_stack *a, t_stack *b)
 	}
 }
 
+/* rra ou ra jusqu'a que la liste soit triee */
 void	rotate_until_sorted(t_stack *a)
 {
 	t_stack	*smallest;
 
-	get_indexes(a);
+	get_indexes_and_median(a);
 	smallest = target_the_smallest(a);
 	while (!is_sorted(a))
 	{
@@ -291,8 +292,8 @@ void	sort_500(t_stack **a, t_stack **b)
 	pb(a, b);
 	while (get_stack_size(*a) > 3)
 	{
-		get_indexes(*a);
-		get_indexes(*b);
+		get_indexes_and_median(*a);
+		get_indexes_and_median(*b);
 		get_targets_in_b(*a, *b);
 		get_cost_in_a(*a, *b);
 		get_cheapest(*a);
@@ -302,8 +303,8 @@ void	sort_500(t_stack **a, t_stack **b)
 	sort_3(a);
 	while (get_stack_size(*b) > 0)
 	{
-		get_indexes(*a);
-		get_indexes(*b);
+		get_indexes_and_median(*a);
+		get_indexes_and_median(*b);
 		get_targets_in_a(*a, *b);
 		get_to_top(a, (*b)->target, 'a');
 		pa(a, b);

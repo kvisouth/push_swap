@@ -6,7 +6,7 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 17:43:21 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/20 01:40:02 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 16:45:44 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	find_smallest_pos(t_stack *stack)
 }
 
 /* Retourne 1 si les entiers dans stack sont triees (croissant), 0 sinon */
-int is_sorted(t_stack *stack)
+int	is_sorted(t_stack *stack)
 {
 	while (stack && stack->next)
 	{
