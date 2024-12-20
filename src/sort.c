@@ -6,7 +6,7 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 17:43:21 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/13 17:26:38 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 01:40:02 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ int	sort(t_stack **stack_a, t_stack **stack_b, int size)
 	else if (size == 5)
 		sort_5(stack_a, stack_b);
 	else if (size > 5 && size <= 500)
-		printf("algo 5+\n");
+		sort_500(stack_a, stack_b);
 	return (1);
 }

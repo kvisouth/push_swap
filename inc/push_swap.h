@@ -6,7 +6,7 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:17:57 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/13 17:14:50 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 01:39:52 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,17 @@
 # include <limits.h>
 # include <stdio.h>
 # include <stdint.h>
+# include <stdbool.h>
 # include "../libft/libft.h"
 
 typedef struct s_stack
 {
 	int				nb;
+	int				index;
+	int				cost;
+	int				half;
+	bool			cheapest;
+	struct s_stack	*target;
 	struct s_stack	*next;
 }	t_stack;
 
@@ -62,6 +68,7 @@ void	sort_2(t_stack **stack);
 void	sort_3(t_stack **stack);
 void	sort_4(t_stack **stack_a, t_stack **stack_b);
 void	sort_5(t_stack **stack_a, t_stack **stack_b);
+void	sort_500(t_stack **stack_a, t_stack **stack_b);
 
 /* Init */
 int		init_stack(t_parse *parse, t_stack **stack, char c);
