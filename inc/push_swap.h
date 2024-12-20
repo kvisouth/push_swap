@@ -6,7 +6,7 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:17:57 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/20 18:46:24 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 19:03:57 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,16 @@ void	sort_3(t_stack **stack);
 void	sort_4(t_stack **stack_a, t_stack **stack_b);
 void	sort_5(t_stack **stack_a, t_stack **stack_b);
 void	sort_turk(t_stack **stack_a, t_stack **stack_b);
+
+/* Fonctions du turk sort */
+t_stack	*target_the_biggest(t_stack *stack);
+t_stack	*target_the_smallest(t_stack *stack);
+t_stack	*get_cheapest_node(t_stack *a);
+int		get_stack_size(t_stack *stack);
+void	get_indexes_and_median(t_stack *stack);
+void	get_targets_in_a(t_stack *a, t_stack *b);
+void	get_targets_in_b(t_stack *a, t_stack *b);
+void	get_cheapest(t_stack *a);
+void	get_cost_in_a(t_stack *a, t_stack *b);
 
 #endif

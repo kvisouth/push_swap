@@ -14,6 +14,8 @@ SRC		=	src/sort_3.c \
 			src/parse_join.c \
 			src/parse_numbers.c \
 			src/sort_500.c \
+			src/sort_500_calc.c \
+			src/sort_500_utils.c \
 
 NAME	= push_swap
 CC		= cc
