@@ -6,13 +6,13 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:58:52 by kevso             #+#    #+#             */
-/*   Updated: 2024/12/20 19:30:13 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 19:32:40 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 
-/* Remonte l'element le moins couteux en haut de la stack */
+/* Remonte l'element 'node_to_move' en haut de la pile */
 void	get_to_top(t_stack **stack, t_stack *node_to_move, char stack_name)
 {
 	while (*stack != node_to_move)
