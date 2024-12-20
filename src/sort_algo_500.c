@@ -6,7 +6,7 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:58:52 by kevso             #+#    #+#             */
-/*   Updated: 2024/12/20 18:30:54 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 18:46:13 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,7 +275,7 @@ void	rotate_until_sorted(t_stack **a)
 	}
 }
 
-void	sort_500(t_stack **a, t_stack **b)
+void	sort_turk(t_stack **a, t_stack **b)
 {
 	pb(a, b);
 	pb(a, b);

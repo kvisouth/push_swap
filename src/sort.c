@@ -6,7 +6,7 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 17:43:21 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/20 16:45:44 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 18:46:17 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	sort(t_stack **stack_a, t_stack **stack_b, int size)
 		sort_4(stack_a, stack_b);
 	else if (size == 5)
 		sort_5(stack_a, stack_b);
-	else if (size > 5 && size <= 500)
-		sort_500(stack_a, stack_b);
+	else
+		sort_turk(stack_a, stack_b);
 	return (1);
 }

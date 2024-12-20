@@ -6,26 +6,11 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:17:42 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/20 18:31:01 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 18:39:27 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
-
-void	debug_print_stack(t_stack *stack)
-{
-	t_stack	*tmp;
-
-	tmp = stack;
-	printf("\n");
-	while (tmp)
-	{
-		printf("%d", tmp->nb);
-		if (tmp->next)
-			printf(" , ");
-		tmp = tmp->next;
-	}
-}
 
 /* Free and delete list */
 void	free_stack(t_stack **stack)
