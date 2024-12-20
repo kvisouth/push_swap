@@ -6,7 +6,7 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:58:52 by kevso             #+#    #+#             */
-/*   Updated: 2024/12/20 19:01:00 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 19:30:13 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,3 +98,39 @@ void	sort_turk(t_stack **a, t_stack **b)
 	}
 	rotate_until_sorted(a);
 }
+
+/*
+
+Comment fonctionne le turk sort :
+
+1. On fait 2x pb, peu importe les valeurs, on s'en fout
+	C'est pour avoir 2 elements a cibler depuis la stack a
+
+2. Tant que la stack 'a' a plus de 3 elements :
+	a. On indexe les elements de 'a' et 'b', et on determine leurs medianes
+	b. On determine une cible pour chaque element de 'a' dans 'b'
+		Une cible c'est "Le plus proche en dessous" dans 'b'. (en gros)
+	c. On calcule le nombre d'operations necessaires pour chaque element
+		de 'a' pour atteindre sa cible.
+	d. On determine l'element le moins couteux suite aux calculs precedents
+	e. On fait en sorte que l'element le moins couteux soit en haut de 'a' et
+		que sa cible soit en haut de 'b'
+	f. On push l'element le moins couteux de 'a' vers 'b', et ca fait que
+		l'element le moins couteux de 'a' a bien rejoins sa cible dans 'b'
+
+3. On trie les 3 derniers elements de 'a' avec sort_3
+
+4. On fait un peu comme quand on a vider 'a' dans 'b', mais dans l'autre sens.
+	Tant que la stack 'b' n'est pas vide :
+	a. On indexe les elements de 'a' et 'b', et on determine leurs medianes
+	b. On determine une cible pour chaque element de 'b' dans 'a'
+		Cette fois, la cible ne sera pas le plus proche en dessous, mais le
+		plus proche au dessus.
+	c. On fait tourner 'a' pour que la cible de l'element au sommet de 'b'
+		soit en haut de 'a', en jouant avec rra et ra selon la mediane.
+	d. On push l'element au sommet de 'b' dans 'a'
+
+5. On fait tourner 'a' jusqu'a ce qu'il soit trie, dans un sens ou dans l'autre
+	selon ou se trouve le plus petit element par rapport a la mediane.
+
+*/
