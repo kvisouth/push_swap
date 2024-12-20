@@ -6,7 +6,7 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:58:52 by kevso             #+#    #+#             */
-/*   Updated: 2024/12/20 16:45:23 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 18:30:54 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,8 +127,6 @@ void	get_cheapest(t_stack *a)
 
 	tmp_a = a;
 	cheapest = INT_MAX;
-	if (!tmp_a)
-		return ;
 	while (tmp_a)
 	{
 		if (tmp_a->cost < cheapest)
@@ -141,7 +139,7 @@ void	get_cheapest(t_stack *a)
 	addr_of_cheapest_node->cheapest = 1;
 }
 
-/* Retourne le ptr sur l'element le moins couteux */
+/* Retourne l'element le moins couteux */
 t_stack	*get_cheapest_node(t_stack *a)
 {
 	t_stack	*tmp_a;
@@ -178,34 +176,26 @@ void	get_to_top(t_stack **stack, t_stack *node_to_move, char stack_name)
 	}
 }
 
-/* rra ou ra jusqu'a que a et b soient dans la meme moitie (Haute)*/
-void	rotate_both(t_stack **a, t_stack **b, t_stack *cheapest)
-{
-	while (*b != cheapest->target && *a != cheapest)
-		rr(a, b);
-	get_indexes_and_median(*a);
-	get_indexes_and_median(*b);
-}
-
-/* Performe un rrr si a et b sont dans la meme moitie (Basse)*/
-void	reverse_rotate_both(t_stack **a, t_stack **b, t_stack *cheapest)
-{
-	while (*b != cheapest->target && *a != cheapest)
-		rrr(a, b);
-	get_indexes_and_median(*a);
-	get_indexes_and_median(*b);
-}
-
-/* Met les elements les moins couteux en haut de a et/ou b */
+/* Remonte des elements en haut des piles */
 void	get_elems_to_top(t_stack **a, t_stack **b)
 {
 	t_stack	*cheapest;
 
 	cheapest = get_cheapest_node(*a);
 	if (cheapest->half == 1 && cheapest->target->half == 1)
-		rotate_both(a, b, cheapest);
+	{
+		while (*b != cheapest->target && *a != cheapest)
+			rr(a, b);
+		get_indexes_and_median(*a);
+		get_indexes_and_median(*b);
+	}
 	else if (cheapest->half == 2 && cheapest->target->half == 2)
-		reverse_rotate_both(a, b, cheapest);
+	{
+		while (*b != cheapest->target && *a != cheapest)
+			rrr(a, b);
+		get_indexes_and_median(*a);
+		get_indexes_and_median(*b);
+	}
 	get_to_top(a, cheapest, 'a');
 	get_to_top(b, cheapest->target, 'b');
 }
@@ -271,18 +261,17 @@ void	get_targets_in_a(t_stack *a, t_stack *b)
 }
 
 /* rra ou ra jusqu'a que la liste soit triee */
-void	rotate_until_sorted(t_stack *a)
+void	rotate_until_sorted(t_stack **a)
 {
 	t_stack	*smallest;
 
-	get_indexes_and_median(a);
-	smallest = target_the_smallest(a);
-	while (!is_sorted(a))
+	smallest = target_the_smallest(*a);
+	while (*a != smallest)
 	{
 		if (smallest->half == 1)
-			ra(&a, 1);
+			ra(a, 1);
 		else
-			rra(&a, 1);
+			rra(a, 1);
 	}
 }
 
@@ -309,5 +298,5 @@ void	sort_500(t_stack **a, t_stack **b)
 		get_to_top(a, (*b)->target, 'a');
 		pa(a, b);
 	}
-	rotate_until_sorted(*a);
+	rotate_until_sorted(a);
 }

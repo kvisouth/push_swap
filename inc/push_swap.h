@@ -6,7 +6,7 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:17:57 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/20 01:39:52 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 17:21:40 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	sort_5(t_stack **stack_a, t_stack **stack_b);
 void	sort_500(t_stack **stack_a, t_stack **stack_b);
 
 /* Init */
+void	free_stack(t_stack **stack);
 int		init_stack(t_parse *parse, t_stack **stack, char c);
 int		find_smallest_pos(t_stack *stack);
 int		fill_stack(t_stack **stack, long *nbrs, int count);
