@@ -1,18 +1,18 @@
-SRC		=	src/sort_3.c \
-			src/init.c \
-			src/sort_2.c \
-			src/sort_5.c \
-			src/main.c \
-			src/sort_instructions_reverse.c \
+SRC		=	src/main.c \
 			src/parse.c \
-			src/sort_instructions_swap.c \
-			src/sort_instructions_push.c \
-			src/sort_4.c \
 			src/parse_args.c \
-			src/sort.c \
-			src/sort_instructions_rotate.c \
 			src/parse_join.c \
 			src/parse_numbers.c \
+			src/init.c \
+			src/sort_instructions_reverse.c \
+			src/sort_instructions_swap.c \
+			src/sort_instructions_push.c \
+			src/sort.c \
+			src/sort_instructions_rotate.c \
+			src/sort_2.c \
+			src/sort_3.c \
+			src/sort_4.c \
+			src/sort_5.c \
 			src/sort_500.c \
 			src/sort_500_calc.c \
 			src/sort_500_utils.c \
