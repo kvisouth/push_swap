@@ -6,7 +6,7 @@
 /*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 13:58:52 by kevso             #+#    #+#             */
-/*   Updated: 2024/12/20 02:12:16 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/20 13:33:36 by kevso            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,6 @@ int	get_stack_size(t_stack *stack)
 	return (size);
 }
 
-/* Met 2 elements dans b, et s'assure qu'ils sont decroissants */
-void	init_b(t_stack **a, t_stack **b)
-{
-	pb(a, b);
-	pb(a, b);
-	if (is_sorted(*b))
-		rb(b, 1);
-}
-
 /* Indexe les éléments de la stack et determine dans quel moitiee ils sont */
 void	get_indexes(t_stack *stack)
 {
@@ -45,15 +36,17 @@ void	get_indexes(t_stack *stack)
 
 	i = 0;
 	tmp = stack;
+	if (!tmp)
+		return ;
 	while (tmp)
 	{
 		tmp->index = i;
-		if (i < get_stack_size(stack) / 2)
+		if (i <= get_stack_size(stack) / 2)
 			tmp->half = 1;
 		else
 			tmp->half = 2;
 		tmp = tmp->next;
-		i++;
+		++i;
 	}	
 }
 
@@ -62,46 +55,46 @@ t_stack	*target_the_biggest(t_stack *stack)
 {
 	t_stack	*tmp;
 	t_stack	*biggest;
+	int		max;
 
 	tmp = stack;
 	biggest = stack;
+	max = INT_MIN;
+	if (!tmp)
+		return (NULL);
 	while (tmp)
 	{
-		if (tmp->nb > biggest->nb)
+		if (tmp->nb > max)
+		{
+			max = tmp->nb;
 			biggest = tmp;
+		}
 		tmp = tmp->next;
 	}
 	return (biggest);
 }
 
-/* Attribue une target dans b à chaque élément de a */
-void	get_targets_in_a(t_stack *a, t_stack *b)
+t_stack	*target_the_smallest(t_stack *stack)
 {
-	t_stack	*tmp_a;
-	t_stack	*tmp_b;
-	t_stack	*target_node;
-	int		target_value;
+	t_stack	*tmp;
+	t_stack	*smallest;
+	int		min;
 
-	tmp_a = a;
-	while (tmp_a)
+	tmp = stack;
+	smallest = stack;
+	min = INT_MAX;
+	if (!tmp)
+		return (NULL);
+	while (tmp)
 	{
-		target_value = INT_MIN;
-		tmp_b = b;
-		while (tmp_b)
+		if (tmp->nb < min)
 		{
-			if (tmp_b->nb < tmp_a->nb && tmp_b->nb > target_value)
-			{
-				target_value = tmp_b->nb;
-				target_node = tmp_b;
-			}
-			tmp_b = tmp_b->next;
+			min = tmp->nb;
+			smallest = tmp;
 		}
-		if (target_value == INT_MIN)
-			tmp_a->target = target_the_biggest(b);
-		else
-			tmp_a->target = target_node;
-		tmp_a = tmp_a->next;
-	}	
+		tmp = tmp->next;
+	}
+	return (smallest);
 }
 
 /* Determine combien d'OP il faut pour mettre un element au sommet de a pour */
@@ -109,17 +102,21 @@ void	get_targets_in_a(t_stack *a, t_stack *b)
 void	get_cost_in_a(t_stack *a, t_stack *b)
 {
 	t_stack	*tmp_a;
+	int	len_a;
+	int	len_b;
 
 	tmp_a = a;
+	len_a = get_stack_size(a);
+	len_b = get_stack_size(b);
 	while (tmp_a)
 	{
 		tmp_a->cost = tmp_a->index;
-		if (tmp_a->half == 2) // Si elem A dans la moitiee basse :
-			tmp_a->cost = get_stack_size(a) - tmp_a->index; // Son cout = taille de A - son index
-		else if (tmp_a->target->half == 1) // Si la target de l'elem A est dans la moitiee haute :
-			tmp_a->cost += tmp_a->target->index; // Son cout = son index + index de sa target
-		else if (tmp_a->target->half == 2) // Si la target de l'elem A est dans la moitiee basse : 
-			tmp_a->cost += get_stack_size(b) - tmp_a->target->index; // Son cout = son index + taille de B - index de sa target
+		if (tmp_a->half == 2)
+			tmp_a->cost = len_a - tmp_a->index;
+		if (tmp_a->target->half == 1)
+			tmp_a->cost += tmp_a->target->index;
+		else
+			tmp_a->cost += len_b - tmp_a->target->index;
 		tmp_a = tmp_a->next;
 	}
 }
@@ -133,6 +130,8 @@ void	get_cheapest(t_stack *a)
 
 	tmp_a = a;
 	cheapest = INT_MAX;
+	if (!tmp_a)
+		return ;
 	while (tmp_a)
 	{
 		if (tmp_a->cost < cheapest)
@@ -161,20 +160,20 @@ t_stack	*get_cheapest_node(t_stack *a)
 }
 
 /* Remonte l'element le moins couteux en haut de la stack */
-void	get_to_top(t_stack **stack, t_stack *top_node, char stack_name)
+void	get_to_top(t_stack **stack, t_stack *node_to_put_on_top, char stack_name)
 {
-	while(*stack != top_node)
+	while(*stack != node_to_put_on_top)
 	{
 		if (stack_name == 'a')
 		{
-			if (top_node->half == 1)
+			if (node_to_put_on_top->half == 1)
 				ra(stack, 1);
 			else
-				rra(stack, 1);			
+				rra(stack, 1);	
 		}
 		else if (stack_name == 'b')
 		{
-			if (top_node->half == 1)
+			if (node_to_put_on_top->half == 1)
 				rb(stack, 1);
 			else
 				rrb(stack, 1);
@@ -211,26 +210,103 @@ void	get_elems_to_top(t_stack **a, t_stack **b)
 	get_to_top(b, cheapest->target, 'b');
 }
 
+/* Attribue une target dans b à chaque élément de a */
+void	get_targets_in_b(t_stack *a, t_stack *b)
+{
+	t_stack	*tmp_a;
+	t_stack	*tmp_b;
+	t_stack	*target_node;
+	int		target_value;
+
+	tmp_a = a;
+	while (tmp_a)
+	{
+		target_value = INT_MIN;
+		tmp_b = b;
+		while (tmp_b)
+		{
+			if (tmp_b->nb < tmp_a->nb && tmp_b->nb > target_value)
+			{
+				target_value = tmp_b->nb;
+				target_node = tmp_b;
+			}
+			tmp_b = tmp_b->next;
+		}
+		if (target_value == INT_MIN)
+			tmp_a->target = target_the_biggest(b);
+		else
+			tmp_a->target = target_node;
+		tmp_a = tmp_a->next;
+	}	
+}
+
+/* Pareil que get_targets_in_b mais dans l'autre sens */
+void	get_targets_in_a(t_stack *a, t_stack *b)
+{
+	t_stack	*tmp_a;
+	t_stack	*tmp_b;
+	t_stack	*target_node;
+	int		target_value;
+
+	tmp_b = b;
+	while (tmp_b)
+	{
+		target_value = INT_MAX;
+		tmp_a = a;
+		while (tmp_a)
+		{
+			if (tmp_a->nb > tmp_b->nb && tmp_a->nb < target_value)
+			{
+				target_value = tmp_a->nb;
+				target_node = tmp_a;
+			}
+			tmp_a = tmp_a->next;
+		}
+		if (target_value == INT_MAX)
+			tmp_b->target = target_the_smallest(a);
+		else
+			tmp_b->target = target_node;
+		tmp_b = tmp_b->next;
+	}
+}
+
+void	rotate_until_sorted(t_stack *a)
+{
+	t_stack	*smallest;
+
+	get_indexes(a);
+	smallest = target_the_smallest(a);
+	while (!is_sorted(a))
+	{
+		if (smallest->half == 1)
+			ra(&a, 1);
+		else
+			rra(&a, 1);
+	}
+}
+
 void	sort_500(t_stack **a, t_stack **b)
 {
-	init_b(a, b);
+	pb(a, b);
+	pb(a, b);
 	while (get_stack_size(*a) > 3)
 	{
 		get_indexes(*a);
 		get_indexes(*b);
-		// 1. attribuer une target à chaque élément de a (target dans b)
-		get_targets_in_a(*a, *b);
-		// 2. determiner le nombre d'operations pour que chaque élément de a atteigne sa target dans b
+		get_targets_in_b(*a, *b);
 		get_cost_in_a(*a, *b);
-		// 3. initialiser la var bool cheapest à 1 pour l'element le moins couteux
 		get_cheapest(*a);
-		// 4. remonter l'element le moins couteux en haut de a puis pb
 		get_elems_to_top(a, b);
 		pb(a, b);
 	}
 	sort_3(a);
-	// while (get_stack_size(*b) > 0)
-	// {
-
-	// }
+	while (get_stack_size(*b) > 0)
+	{
+		get_indexes(*a);
+		get_indexes(*b);
+		get_targets_in_a(*a, *b);
+		get_to_top(a, (*b)->target, 'a');
+		pa(a, b);
+	}
+	rotate_until_sorted(*a);
 }
