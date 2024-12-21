@@ -3,12 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kevso <kevso@student.42.fr>                +#+  +:+       +#+        */
+/*   By: kevisout <kevisout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 18:35:46 by kevso             #+#    #+#             */
-/*   Updated: 2024/12/20 18:39:08 by kevso            ###   ########.fr       */
+/*   Updated: 2024/12/21 17:31:40 by kevisout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef STRUCT_H
+# define STRUCT_H
 
 /* Structure utile pour le parsing */
 typedef struct s_parse
@@ -29,6 +32,8 @@ typedef struct s_stack
 	struct s_stack	*target;
 	struct s_stack	*next;
 }	t_stack;
+
+#endif
 
 /*
 
