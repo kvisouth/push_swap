@@ -6,7 +6,7 @@
 /*   By: kevisout <kevisout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 17:43:21 by kevisout          #+#    #+#             */
-/*   Updated: 2024/12/21 17:29:28 by kevisout         ###   ########.fr       */
+/*   Updated: 2024/12/27 18:35:01 by kevisout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	is_sorted(t_stack *stack)
 /* Trie stack_a */
 int	sort(t_stack **stack_a, t_stack **stack_b, int size)
 {
-	if (size == 1 || is_sorted(*stack_a))
+	if (is_sorted(*stack_a) || size == 1)
 		return (1);
 	else if (size == 2)
 		sort_2(stack_a);
