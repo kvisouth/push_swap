@@ -6,7 +6,7 @@
 /*   By: kevisout <kevisout@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 19:00:56 by kevisout          #+#    #+#             */
-/*   Updated: 2024/11/30 11:08:09 by kevisout         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:49:57 by kevisout         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int	check_only_numeric(char *args)
 	i = 0;
 	while (args[i])
 	{
-		if (!ft_isdigit(args[i]) && args[i] != ' '
-			&& !(args[i] == '-' && ((i == 0 && ft_isdigit(args[i + 1]))
+		if (!ft_isdigit(args[i])
+			&& args[i] != ' '
+			&& !(args[i] == '-'
+				&& ((i == 0 && ft_isdigit(args[i + 1]))
 					|| (i > 0 && args[i - 1] == ' '
 						&& ft_isdigit(args[i + 1])))))
 			return (0);
